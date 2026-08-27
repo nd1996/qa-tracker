@@ -232,48 +232,46 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col">
-      <Navbar
-        user={user}
-        isOnline={isOnline}
-        pendingSyncCount={pendingSyncCount}
-        onLogout={handleLogout}
-      />
-
-      <main className="flex-1 max-w-md w-full mx-auto p-4">
-        <SummaryCards summary={summary} />
-
-        <DynamicFilter
-          activeFilters={activeFilters}
-          onFilterChange={(filters) => {
-            setActiveFilters(filters);
-            setPagination((prev) => ({ ...prev, page: 1 }));
-          }}
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+        <Navbar
+            user={user}
+            isOnline={isOnline}
+            pendingSyncCount={pendingSyncCount}
+            onLogout={handleLogout}
         />
 
-        <InspectionList
-          inspections={inspections}
-          pagination={pagination}
-          sortOrder={sortOrder}
-          onSortToggle={() => setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))}
-          onPageChange={(page) => setPagination((prev) => ({ ...prev, page }))}
-          onPageSizeChange={(limit) => setPagination((prev) => ({ ...prev, limit, page: 1 }))}
-          onOpenResolve={(item) => setResolvingItem(item)}
-        />
-      </main>
+        <main className="flex-1 max-w-md w-full mx-auto p-4">
+            <SummaryCards summary={summary} />
+            <DynamicFilter
+            activeFilters={activeFilters}
+            onFilterChange={(filters) => {
+                setActiveFilters(filters);
+                setPagination((prev) => ({ ...prev, page: 1 }));
+            }}
+            />
+            <InspectionList
+            inspections={inspections}
+            pagination={pagination}
+            sortOrder={sortOrder}
+            onSortToggle={() => setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))}
+            onPageChange={(page) => setPagination((prev) => ({ ...prev, page }))}
+            onPageSizeChange={(limit) => setPagination((prev) => ({ ...prev, limit, page: 1 }))}
+            onOpenResolve={(item) => setResolvingItem(item)}
+            />
+        </main>
 
-      {/* Sticky Bottom Action Button for 390px Mobile Thumb Zone */}
-      <div className="fixed bottom-0 left-0 right-0 p-3 bg-white/80 backdrop-blur-md border-t border-slate-200 z-20">
-        <div className="max-w-md mx-auto">
-          <button
-            onClick={() => setIsLogModalOpen(true)}
-            className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xs py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 transition"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Log Quality Inspection</span>
-          </button>
+        {/* Sticky Mobile Thumb Action */}
+        <div className="fixed bottom-0 left-0 right-0 p-3 bg-slate-950/80 backdrop-blur-lg border-t border-slate-800 z-20">
+            <div className="max-w-md mx-auto">
+            <button
+                onClick={() => setIsLogModalOpen(true)}
+                className="w-full bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg shadow-blue-950 flex items-center justify-center gap-2 transition"
+            >
+                <Plus className="w-4 h-4" />
+                <span>Log Quality Inspection</span>
+            </button>
+            </div>
         </div>
-      </div>
 
       <LogInspectionModal
         isOpen={isLogModalOpen}
