@@ -13,11 +13,11 @@ export const InspectionList = ({
   const getSeverityBadge = (sev) => {
     switch (sev) {
       case 'Critical':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return 'bg-red-100 text-red-800 border-red-200 border-l-4 border-l-rose-500';
       case 'Major':
-        return 'bg-amber-100 text-amber-800 border-amber-200';
+        return 'bg-amber-100 text-amber-800 border-amber-200 border-l-4 border-l-amber-500';
       default:
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return 'bg-blue-100 text-blue-800 border-blue-200 border-l-4 border-l-blue-500';
     }
   };
 
