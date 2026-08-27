@@ -1,0 +1,35 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                  Int          @id @default(autoincrement())
+  username            String       @unique
+  password            String
+  shift               String
+  loggedInspections   Inspection[] @relation("LoggedBy")
+  resolvedInspections Inspection[] @relation("ResolvedBy")
+}
+
+model Inspection {
+  id             Int       @id @default(autoincrement())
+  lineId         String
+  defectType     String    // Weave Defect, Shade Variation, Hole/Tear, Count Deviation, Other
+  severity       String    // Critical, Major, Minor
+  status         String    @default("Open") // Open, Resolved
+  remarks        String?
+  resolutionNote String?
+  loggedAt       DateTime  @default(now())
+  resolvedAt     DateTime?
+
+  loggedById     Int
+  loggedBy       User      @relation("LoggedBy", fields: [loggedById], references: [id])
+
+  resolvedById   Int?
+  resolvedBy     User?     @relation("ResolvedBy", fields: [resolvedById], references: [id])
+}
